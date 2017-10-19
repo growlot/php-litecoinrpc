@@ -1,7 +1,7 @@
 # Simple Litecoin JSON-RPC client based on GuzzleHttp
 
 ## About
-This project is based on [php-litecoinrpc](https://github.com/denpamusic/php-bitcoinrpc) project - fully unit-tested Litecoin JSON-RPC client powered by GuzzleHttp.
+This project is based on [php-bitcoinrpc](https://github.com/denpamusic/php-bitcoinrpc) project - fully unit-tested Litecoin JSON-RPC client powered by GuzzleHttp.
 
 ## Installation
 Run ```php composer.phar require majestic/php-litecoinrpc``` in your project directory or add following lines to composer.json
