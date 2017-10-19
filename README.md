@@ -138,4 +138,4 @@ This product is distributed under MIT license.
 If you like this project,
 you can donate Litecoins to LKdsQGCwBbgJNdXSQtAvVbFMpwgwThtsSY.
 
-Thanks for your support!❤
+Thanks for your support!
