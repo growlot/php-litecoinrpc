@@ -1,10 +1,10 @@
 <?php
 
-namespace Denpa\Bitcoin;
+namespace Majestic\Litecoin;
 
 use Psr\Http\Message\ResponseInterface;
 
-class BitcoindResponse implements
+class LitecoindResponse implements
     ResponseInterface,
     \ArrayAccess,
     \Countable,
@@ -160,7 +160,7 @@ class BitcoindResponse implements
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      *
-     * @return \Denpa\Bitcoin\BitcoindResponse
+     * @return \Majestic\Litecoin\LitecoindResponse
      */
     public static function createFrom(ResponseInterface $response)
     {

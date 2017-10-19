@@ -1,6 +1,6 @@
 <?php
 
-namespace Denpa\Bitcoin;
+namespace Majestic\Litecoin;
 
 use GuzzleHttp\Client as GuzzleHttp;
 use GuzzleHttp\ClientInterface;
@@ -40,7 +40,7 @@ class Client
         $handlerStack = HandlerStack::create();
         $handlerStack->push(
             Middleware::mapResponse(function (ResponseInterface $response) {
-                return BitcoindResponse::createFrom($response);
+                return LitecoindResponse::createFrom($response);
             }),
             'json_response'
         );
@@ -98,7 +98,7 @@ class Client
     }
 
     /**
-     * Makes request to Bitcoin Core.
+     * Makes request to Litecoin Core.
      *
      * @param string $method
      * @param mixed  $params
@@ -118,7 +118,7 @@ class Client
 
             if ($response->hasError()) {
                 // throw exception on error
-                throw new Exceptions\BitcoindException($response->error());
+                throw new Exceptions\LitecoindException($response->error());
             }
 
             return $response;
@@ -127,20 +127,20 @@ class Client
                 $exception->hasResponse() &&
                 $exception->getResponse()->hasError()
             ) {
-                throw new Exceptions\BitcoindException($exception->getResponse()->error());
+                throw new Exceptions\LitecoindException($exception->getResponse()->error());
             }
 
             throw new Exceptions\ClientException(
                 $exception->getMessage(),
                 $exception->getCode()
             );
-        } catch (Exceptions\BitcoindException $exception) {
+        } catch (Exceptions\LitecoindException $exception) {
             throw $exception;
         }
     }
 
     /**
-     * Makes async request to Bitcoin Core.
+     * Makes async request to Litecoin Core.
      *
      * @param string        $method
      * @param mixed         $params
@@ -168,7 +168,7 @@ class Client
             function (ResponseInterface $response) use ($onFullfiled) {
                 $error = null;
                 if ($response->hasError()) {
-                    $error = new Exceptions\BitcoindException($response->error());
+                    $error = new Exceptions\LitecoindException($response->error());
                 }
 
                 if (is_callable($onFullfiled)) {
@@ -180,7 +180,7 @@ class Client
                     $exception->hasResponse() &&
                     $exception->getResponse()->hasError()
                 ) {
-                    $exception = new Exceptions\BitcoindException(
+                    $exception = new Exceptions\LitecoindException(
                         $exception->getResponse()->error()
                     );
                 }
@@ -202,7 +202,7 @@ class Client
     }
 
     /**
-     * Makes request to Bitcoin Core.
+     * Makes request to Litecoin Core.
      *
      * @param string $method
      * @param array  $params
@@ -265,7 +265,7 @@ class Client
     }
 
     /**
-     * Converts amount from satoshi to bitcoin.
+     * Converts amount from satoshi to litecoin.
      *
      * @param int $amount
      *
@@ -277,7 +277,7 @@ class Client
     }
 
     /**
-     * Converts amount from bitcoin to satoshi.
+     * Converts amount from litecoin to satoshi.
      *
      * @param float $amount
      *

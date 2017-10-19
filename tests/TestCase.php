@@ -1,6 +1,6 @@
 <?php
 
-use Denpa\Bitcoin;
+use Majestic\Litecoin;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -96,7 +96,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function mockGuzzle(array $queue = [])
     {
-        $handler = $this->bitcoind->getConfig('handler');
+        $handler = $this->litecoind->getConfig('handler');
 
         if ($handler) {
             $handler->setHandler(new MockHandler($queue));
@@ -154,7 +154,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             return new RequestException(
                 'test',
                 $request,
-                Bitcoin\BitcoindResponse::createFrom($this->rawTransactionError())
+                Litecoin\LitecoindResponse::createFrom($this->rawTransactionError())
             );
         };
 

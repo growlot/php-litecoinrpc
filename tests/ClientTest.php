@@ -1,7 +1,7 @@
 <?php
 
-use Denpa\Bitcoin;
-use Denpa\Bitcoin\Exceptions;
+use Majestic\Litecoin;
+use Majestic\Litecoin\Exceptions;
 use GuzzleHttp\Psr7\Response;
 
 class ClientTest extends TestCase
@@ -15,7 +15,7 @@ class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $this->bitcoind = new Bitcoin\Client();
+        $this->litecoind = new Litecoin\Client();
     }
 
     /**
@@ -34,17 +34,17 @@ class ClientTest extends TestCase
      */
     public function testUrlParser($url, $scheme, $host, $port, $user, $pass)
     {
-        $bitcoind = new Bitcoin\Client($url);
+        $litecoind = new Litecoin\Client($url);
 
-        $this->assertInstanceOf(Bitcoin\Client::class, $bitcoind);
+        $this->assertInstanceOf(Litecoin\Client::class, $litecoind);
 
-        $base_uri = $bitcoind->getConfig('base_uri');
+        $base_uri = $litecoind->getConfig('base_uri');
 
         $this->assertEquals($base_uri->getScheme(), $scheme);
         $this->assertEquals($base_uri->getHost(), $host);
         $this->assertEquals($base_uri->getPort(), $port);
 
-        $auth = $bitcoind->getConfig('auth');
+        $auth = $litecoind->getConfig('auth');
         $this->assertEquals($auth[0], $user);
         $this->assertEquals($auth[1], $pass);
     }
@@ -74,7 +74,7 @@ class ClientTest extends TestCase
     public function testUrlParserWithInvalidUrl()
     {
         try {
-            $bitcoind = new Bitcoin\Client('cookies!');
+            $litecoind = new Litecoin\Client('cookies!');
 
             $this->expectException(Exceptions\ClientException::class);
         } catch (Exceptions\ClientException $e) {
@@ -89,19 +89,19 @@ class ClientTest extends TestCase
      */
     public function testClientSetterGetter()
     {
-        $bitcoind = new Bitcoin\Client('http://old_client.org');
-        $this->assertInstanceOf(Bitcoin\Client::class, $bitcoind);
+        $litecoind = new Litecoin\Client('http://old_client.org');
+        $this->assertInstanceOf(Litecoin\Client::class, $litecoind);
 
-        $base_uri = $bitcoind->getConfig('base_uri');
+        $base_uri = $litecoind->getConfig('base_uri');
         $this->assertEquals($base_uri->getHost(), 'old_client.org');
 
-        $oldClient = $bitcoind->getClient();
+        $oldClient = $litecoind->getClient();
         $this->assertInstanceOf(\GuzzleHttp\Client::class, $oldClient);
 
         $newClient = new \GuzzleHttp\Client(['base_uri' => 'http://new_client.org']);
-        $bitcoind->setClient($newClient);
+        $litecoind->setClient($newClient);
 
-        $base_uri = $bitcoind->getConfig('base_uri');
+        $base_uri = $litecoind->getConfig('base_uri');
         $this->assertEquals($base_uri->getHost(), 'new_client.org');
     }
 
@@ -112,15 +112,15 @@ class ClientTest extends TestCase
      */
     public function testCaOption()
     {
-        $bitcoind = new Bitcoin\Client();
+        $litecoind = new Litecoin\Client();
 
-        $this->assertEquals(null, $bitcoind->getConfig('ca'));
+        $this->assertEquals(null, $litecoind->getConfig('ca'));
 
-        $bitcoind = new Bitcoin\Client([
+        $litecoind = new Litecoin\Client([
             'ca' => __FILE__,
         ]);
 
-        $this->assertEquals(__FILE__, $bitcoind->getConfig('verify'));
+        $this->assertEquals(__FILE__, $litecoind->getConfig('verify'));
     }
 
     /**
@@ -134,7 +134,7 @@ class ClientTest extends TestCase
             $this->getBlockResponse(),
         ]);
 
-        $response = $this->bitcoind
+        $response = $this->litecoind
             ->setClient($guzzle)
             ->request(
                 'getblockheader',
@@ -156,12 +156,12 @@ class ClientTest extends TestCase
         ]);
 
         $onFulfilled = $this->mockCallable([
-            $this->callback(function (Bitcoin\BitcoindResponse $response) {
+            $this->callback(function (Litecoin\LitecoindResponse $response) {
                 return $response->get() == self::$getBlockResponse;
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->requestAsync(
                 'getblockheader',
@@ -185,7 +185,7 @@ class ClientTest extends TestCase
             $this->getBlockResponse(),
         ]);
 
-        $response = $this->bitcoind
+        $response = $this->litecoind
             ->setClient($guzzle)
             ->getBlockHeader(
                 '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f'
@@ -206,12 +206,12 @@ class ClientTest extends TestCase
         ]);
 
         $onFulfilled = $this->mockCallable([
-            $this->callback(function (Bitcoin\BitcoindResponse $response) {
+            $this->callback(function (Litecoin\LitecoindResponse $response) {
                 return $response->get() == self::$getBlockResponse;
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->getBlockHeaderAsync(
                 '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f',
@@ -224,49 +224,49 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test bitcoind exception.
+     * Test litecoind exception.
      *
      * @return void
      */
-    public function testBitcoindException()
+    public function testLitecoindException()
     {
         $guzzle = $this->mockGuzzle([
             $this->rawTransactionError(200),
         ]);
 
         try {
-            $response = $this->bitcoind
+            $response = $this->litecoind
                 ->setClient($guzzle)
                 ->getRawTransaction(
                     '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b'
                 );
 
-            $this->expectException(Exceptions\BitcoindException::class);
-        } catch (Exceptions\BitcoindException $e) {
+            $this->expectException(Exceptions\LitecoindException::class);
+        } catch (Exceptions\LitecoindException $e) {
             $this->assertEquals(self::$rawTransactionError['message'], $e->getMessage());
             $this->assertEquals(self::$rawTransactionError['code'], $e->getCode());
         }
     }
 
     /**
-     * Test async bitcoind exception.
+     * Test async litecoind exception.
      *
      * @return void
      */
-    public function testAsyncBitcoindException()
+    public function testAsyncLitecoindException()
     {
         $guzzle = $this->mockGuzzle([
             $this->rawTransactionError(200),
         ]);
 
         $onFulfilled = $this->mockCallable([
-            $this->callback(function (Exceptions\BitcoindException $exception) {
+            $this->callback(function (Exceptions\LitecoindException $exception) {
                 return $exception->getMessage() == self::$rawTransactionError['message'] &&
                     $exception->getCode() == self::$rawTransactionError['code'];
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->requestAsync(
                 'getrawtransaction',
@@ -291,14 +291,14 @@ class ClientTest extends TestCase
         ]);
 
         try {
-            $this->bitcoind
+            $this->litecoind
                 ->setClient($guzzle)
                 ->getRawTransaction(
                     '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b'
                 );
 
-            $this->expectException(Exceptions\BitcoindException::class);
-        } catch (Exceptions\BitcoindException $exception) {
+            $this->expectException(Exceptions\LitecoindException::class);
+        } catch (Exceptions\LitecoindException $exception) {
             $this->assertEquals(
                 self::$rawTransactionError['message'],
                 $exception->getMessage()
@@ -322,13 +322,13 @@ class ClientTest extends TestCase
         ]);
 
         $onRejected = $this->mockCallable([
-            $this->callback(function (Exceptions\BitcoindException $exception) {
+            $this->callback(function (Exceptions\LitecoindException $exception) {
                 return $exception->getMessage() == self::$rawTransactionError['message'] &&
                     $exception->getCode() == self::$rawTransactionError['code'];
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->requestAsync(
                 'getrawtransaction',
@@ -354,7 +354,7 @@ class ClientTest extends TestCase
         ]);
 
         try {
-            $response = $this->bitcoind
+            $response = $this->litecoind
                 ->setClient($guzzle)
                 ->getRawTransaction(
                     '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b'
@@ -388,7 +388,7 @@ class ClientTest extends TestCase
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->requestAsync(
                 'getrawtransaction',
@@ -414,14 +414,14 @@ class ClientTest extends TestCase
         ]);
 
         try {
-            $response = $this->bitcoind
+            $response = $this->litecoind
                 ->setClient($guzzle)
                 ->getRawTransaction(
                     '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b'
                 );
 
-            $this->expectException(Exceptions\BitcoindException::class);
-        } catch (Exceptions\BitcoindException $exception) {
+            $this->expectException(Exceptions\LitecoindException::class);
+        } catch (Exceptions\LitecoindException $exception) {
             $this->assertEquals(
                 self::$rawTransactionError['message'],
                 $exception->getMessage()
@@ -447,13 +447,13 @@ class ClientTest extends TestCase
         ]);
 
         $onRejected = $this->mockCallable([
-            $this->callback(function (Exceptions\BitcoindException $exception) {
+            $this->callback(function (Exceptions\LitecoindException $exception) {
                 return $exception->getMessage() == self::$rawTransactionError['message'] &&
                     $exception->getCode() == self::$rawTransactionError['code'];
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->requestAsync(
                 'getrawtransaction',
@@ -479,7 +479,7 @@ class ClientTest extends TestCase
         ]);
 
         try {
-            $response = $this->bitcoind
+            $response = $this->litecoind
                 ->setClient($guzzle)
                 ->getRawTransaction(
                     '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b'
@@ -515,7 +515,7 @@ class ClientTest extends TestCase
             }),
         ]);
 
-        $promise = $this->bitcoind
+        $promise = $this->litecoind
             ->setClient($guzzle)
             ->requestAsync(
                 'getrawtransaction',
@@ -531,19 +531,19 @@ class ClientTest extends TestCase
 
     public function testToBtc()
     {
-        $this->assertEquals(0.00005849, Bitcoin\Client::toBtc(310000 / 53));
+        $this->assertEquals(0.00005849, Litecoin\Client::toBtc(310000 / 53));
     }
 
     public function testToSatoshi()
     {
-        $this->assertEquals(5849, Bitcoin\Client::toSatoshi(0.00005849));
+        $this->assertEquals(5849, Litecoin\Client::toSatoshi(0.00005849));
     }
 
     public function testToFixed()
     {
-        $this->assertSame('1', Bitcoin\Client::toFixed(1.2345678910, 0));
-        $this->assertSame('1.23', Bitcoin\Client::toFixed(1.2345678910, 2));
-        $this->assertSame('1.2345', Bitcoin\Client::toFixed(1.2345678910, 4));
-        $this->assertSame('1.23456789', Bitcoin\Client::toFixed(1.2345678910, 8));
+        $this->assertSame('1', Litecoin\Client::toFixed(1.2345678910, 0));
+        $this->assertSame('1.23', Litecoin\Client::toFixed(1.2345678910, 2));
+        $this->assertSame('1.2345', Litecoin\Client::toFixed(1.2345678910, 4));
+        $this->assertSame('1.23456789', Litecoin\Client::toFixed(1.2345678910, 8));
     }
 }

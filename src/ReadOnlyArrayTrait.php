@@ -1,6 +1,6 @@
 <?php
 
-namespace Denpa\Bitcoin;
+namespace Majestic\Litecoin;
 
 trait ReadOnlyArrayTrait
 {

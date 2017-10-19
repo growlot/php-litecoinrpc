@@ -1,6 +1,6 @@
 <?php
 
-namespace Denpa\Bitcoin\Exceptions;
+namespace Majestic\Litecoin\Exceptions;
 
 use RuntimeException;
 

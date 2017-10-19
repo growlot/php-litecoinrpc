@@ -14,7 +14,7 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="Bitcoin API Test Suite">
+        <testsuite name="Litecoin API Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

@@ -1,14 +1,14 @@
 {
-    "name": "denpa/php-bitcoinrpc",
+    "name": "majestic/php-litecoinrpc",
 	"type": "library",
-	"description": "Bitcoin JSON-RPC client based on GuzzleHttp",
-	"keywords": ["bitcoin","api","jsonrpc","guzzle"],
-	"homepage": "https://github.com/denpamusic/php-bitcoinrpc",
+	"description": "Litecoin JSON-RPC client based on GuzzleHttp",
+	"keywords": ["litecoin","api","jsonrpc","guzzle"],
+	"homepage": "https://github.com/majestic84/php-litecoinrpc",
     "license": "MIT",
     "authors": [
         {
-            "name": "Denis Paavilainen",
-            "email": "denpa@netfleet.space",
+            "name": "majestic84",
+            "email": "southsideprod@hotmail.com",
             "role": "Developer"
         }
 	],
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4" : {
-            "Denpa\\Bitcoin\\": "src"
+            "Majestic\\Litecoin\\": "src"
         },
         "classmap" : [
             "tests"

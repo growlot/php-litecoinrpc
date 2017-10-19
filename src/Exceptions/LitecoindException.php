@@ -1,13 +1,13 @@
 <?php
 
-namespace Denpa\Bitcoin\Exceptions;
+namespace Majestic\Litecoin\Exceptions;
 
 use RuntimeException;
 
 class BitcoindException extends RuntimeException
 {
     /**
-     * Construct new bitcoind exception.
+     * Construct new litecoind exception.
      *
      * @param object $error
      *
