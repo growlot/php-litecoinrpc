@@ -57,12 +57,12 @@ class ClientTest extends TestCase
     public function urlProvider()
     {
         return [
-            ['https://localhost', 'https', 'localhost', 8332, '', ''],
-            ['https://localhost:8000', 'https', 'localhost', 8000, '', ''],
-            ['http://localhost', 'http', 'localhost', 8332, '', ''],
-            ['http://localhost:8000', 'http', 'localhost', 8000, '', ''],
-            ['http://testuser@127.0.0.1:8000/', 'http', '127.0.0.1', 8000, 'testuser', ''],
-            ['http://testuser:testpass@localhost:8000', 'http', 'localhost', 8000, 'testuser', 'testpass'],
+            ['https://localhost', 'https', 'localhost', 9332, '', ''],
+            ['https://localhost:8000', 'https', 'localhost', 9000, '', ''],
+            ['http://localhost', 'http', 'localhost', 9332, '', ''],
+            ['http://localhost:8000', 'http', 'localhost', 9000, '', ''],
+            ['http://testuser@127.0.0.1:8000/', 'http', '127.0.0.1', 9000, 'testuser', ''],
+            ['http://testuser:testpass@localhost:8000', 'http', 'localhost', 9000, 'testuser', 'testpass'],
         ];
     }
 

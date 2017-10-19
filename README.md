@@ -20,7 +20,7 @@ Create new object with url as parameter
 ```php
 use Majestic\Litecoin\Client as LitecoinClient;
 
-$litecoind = new LitecoinClient('http://rpcuser:rpcpassword@localhost:8332/');
+$litecoind = new LitecoinClient('http://rpcuser:rpcpassword@localhost:9332/');
 ```
 or use array to define your litecoind settings
 ```php
@@ -29,7 +29,7 @@ use Majestic\Litecoin\Client as LitecoinClient;
 $litecoind = new LitecoinClient([
     'scheme' => 'http',                 // optional, default http
     'host'   => 'localhost',            // optional, default localhost
-    'port'   => 8332,                   // optional, default 8332
+    'port'   => 9332,                   // optional, default 9332
     'user'   => 'rpcuser',              // required
     'pass'   => 'rpcpassword',          // required
     'ca'     => '/etc/ssl/ca-cert.pem'  // optional, for use with https scheme
