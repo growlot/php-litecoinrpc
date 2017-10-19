@@ -40,12 +40,12 @@ Then call methods defined in [Litecoin Core API Documentation](https://litecoin.
 /**
  * Get block info.
  */
-$block = $litecoind->getBlock('000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f');
+$block = $litecoind->getBlock('9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8');
 
-$block('hash')->get();     // 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
-$block['height'];          // 0 (array access)
-$block->get('tx.0');       // 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
-$block->count('tx');       // 1
+$block('hash')->get();     // 9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8
+$block['height'];          // 1298009 (array access)
+$block->get('tx.0');       // a8971eaf8dfda3ee5dd20b3de3fb6c22e936339bbb53f8fa0f2379941ac5ff3f
+$block->count('tx');       // 26
 $block->has('version');    // key must exist and CAN NOT be null
 $block->exists('version'); // key must exist and CAN be null
 $block->contains(0);       // check if response contains value
@@ -59,7 +59,7 @@ $block('tx')->last();      // txid of last transaction
 /**
  * Send transaction.
  */
-$result = $litecoind->sendToAddress('mmXgiR6KAhZCyQ8ndr2BCfEq1wNG2UnyG6', 0.1);
+$result = $litecoind->sendToAddress('LKdsQGCwBbgJNdXSQtAvVbFMpwgwThtsSY', 0.1);
 $txid = $result->get();
 
 /**
@@ -74,7 +74,7 @@ To send asynchronous request, add Async to method name:
 use Majestic\Litecoin\LitecoindResponse;
 
 $promise = $litecoind->getBlockAsync(
-    '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f',
+    '9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8',
     function (LitecoindResponse $success) {
         //
     },
@@ -91,12 +91,12 @@ You can also send requests using request method:
 /**
  * Get block info.
  */
-$block = $litecoind->request('getBlock', '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f');
+$block = $litecoind->request('getBlock', '9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8');
 
-$block('hash');            // 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
-$block['height'];          // 0 (array access)
-$block->get('tx.0');       // 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
-$block->count('tx');       // 1
+$block('hash');            // 9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8
+$block['height'];          // 1298009 (array access)
+$block->get('tx.0');       // a8971eaf8dfda3ee5dd20b3de3fb6c22e936339bbb53f8fa0f2379941ac5ff3f
+$block->count('tx');       // 26
 $block->has('version');    // key must exist and CAN NOT be null
 $block->exists('version'); // key must exist and CAN be null
 $block->contains(0);       // check if response contains value
@@ -107,7 +107,7 @@ $block->random(1, 'tx');   // get random txid
 /**
  * Send transaction.
  */
-$result = $BTC->request('sendtoaddress', ['mmXgiR6KAhZCyQ8ndr2BCfEq1wNG2UnyG6', 0.06]);
+$result = $BTC->request('sendtoaddress', ['LKdsQGCwBbgJNdXSQtAvVbFMpwgwThtsSY', 0.06]);
 $txid = $result->get();
 
 ```
@@ -117,7 +117,7 @@ use Majestic\Litecoin\LitecoindResponse;
 
 $promise = $litecoind->requestAsync(
     'getBlock',
-    '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f',
+    '9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8',
     function (LitecoindResponse $success) {
         //
     },
