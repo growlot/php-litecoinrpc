@@ -4,7 +4,7 @@ namespace Majestic\Litecoin\Exceptions;
 
 use RuntimeException;
 
-class BitcoindException extends RuntimeException
+class LitecoindException extends RuntimeException
 {
     /**
      * Construct new litecoind exception.
