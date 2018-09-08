@@ -19,6 +19,13 @@ class Client
     protected $client = null;
 
     /**
+     * URL path.
+     *
+     * @var string
+     */
+    protected $path = '/';
+
+    /**
      * JSON-RPC Id.
      *
      * @var int
@@ -98,6 +105,20 @@ class Client
     }
 
     /**
+     * Sets wallet for multi-wallet rpc request.
+     *
+     * @param string $name
+     *
+     * @return static
+     */
+    public function wallet($name)
+    {
+        $this->path = "/wallet/$name";
+
+        return $this;
+    }
+
+    /**
      * Makes request to Litecoin Core.
      *
      * @param string $method
@@ -114,7 +135,7 @@ class Client
                 'id'     => $this->rpcId++,
             ];
 
-            $response = $this->client->request('POST', '/', ['json' => $json]);
+            $response = $this->client->request('POST', $this->path, ['json' => $json]);
 
             if ($response->hasError()) {
                 // throw exception on error
@@ -162,7 +183,7 @@ class Client
         ];
 
         $promise = $this->client
-            ->requestAsync('POST', '/', ['json' => $json]);
+            ->requestAsync('POST', $this->path, ['json' => $json]);
 
         $promise->then(
             function (ResponseInterface $response) use ($onFullfiled) {
