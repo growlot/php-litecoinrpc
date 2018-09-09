@@ -58,11 +58,11 @@ class ClientTest extends TestCase
     {
         return [
             ['https://localhost', 'https', 'localhost', 9332, '', ''],
-            ['https://localhost:8000', 'https', 'localhost', 9000, '', ''],
+            ['https://localhost:9000', 'https', 'localhost', 9000, '', ''],
             ['http://localhost', 'http', 'localhost', 9332, '', ''],
-            ['http://localhost:8000', 'http', 'localhost', 9000, '', ''],
-            ['http://testuser@127.0.0.1:8000/', 'http', '127.0.0.1', 9000, 'testuser', ''],
-            ['http://testuser:testpass@localhost:8000', 'http', 'localhost', 9000, 'testuser', 'testpass'],
+            ['http://localhost:9000', 'http', 'localhost', 9000, '', ''],
+            ['http://testuser@127.0.0.1:9000/', 'http', '127.0.0.1', 9000, 'testuser', ''],
+            ['http://testuser:testpass@localhost:9000', 'http', 'localhost', 9000, 'testuser', 'testpass'],
         ];
     }
 
@@ -142,6 +142,67 @@ class ClientTest extends TestCase
             );
 
         $this->assertEquals(self::$getBlockResponse, $response->get());
+    }
+
+    /**
+     * Test multiwallet request.
+     *
+     * @return void
+     */
+    public function testMultiWalletRequest()
+    {
+        $wallet = 'testwallet.dat';
+        $history = [];
+
+        $guzzle = $this->mockGuzzle([
+            $this->getBalanceResponse(),
+        ], $history);
+
+        $response = $this->litecoind
+            ->setClient($guzzle)
+            ->wallet($wallet)
+            ->request('getbalance');
+
+        $request = $history[0]['request'];
+        $this->assertEquals(self::$balanceResponse, $response->get());
+        $this->assertEquals($request->getUri()->getPath(), "/wallet/$wallet");
+    }
+
+    /**
+     * Test async multiwallet request.
+     *
+     * @return void
+     */
+    public function testMultiWalletAsyncRequest()
+    {
+        $wallet = 'testwallet2.dat';
+        $history = [];
+
+        $guzzle = $this->mockGuzzle([
+            $this->getBalanceResponse(),
+        ], $history);
+
+        $onFulfilled = $this->mockCallable([
+            $this->callback(function (Litecoin\LitecoindResponse $response) {
+                return $response->get() == self::$balanceResponse;
+            }),
+        ]);
+
+        $promise = $this->litecoind
+            ->setClient($guzzle)
+            ->wallet($wallet)
+            ->requestAsync(
+                'getbalance',
+                [],
+                function ($response) use ($onFulfilled) {
+                    $onFulfilled($response);
+                }
+            );
+
+        $promise->wait();
+
+        $request = $history[0]['request'];
+        $this->assertEquals($request->getUri()->getPath(), "/wallet/$wallet");
     }
 
     /**

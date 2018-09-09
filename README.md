@@ -129,6 +129,17 @@ $promise = $litecoind->requestAsync(
 $promise->wait();
 ```
 
+## Multi-Wallet RPC
+You can use `wallet($name)` function to do a [Multi-Wallet RPC call](https://github.com/litecoin-project/litecoin/blob/v0.15.0.1rc1/doc/release-notes-litecoin.md#multi-wallet-support):
+```php
+/**
+ * Get wallet2.dat balance.
+ */
+$balance = $litecoind->wallet('wallet2.dat')->getbalance();
+
+$balance->get(); // 0.10000000
+```
+
 ## License
 
 This product is distributed under MIT license.
