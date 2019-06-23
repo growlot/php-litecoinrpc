@@ -1,6 +1,6 @@
 <?php
 
-namespace Majestic\Litecoin;
+namespace Growlot\Litecoin;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -160,7 +160,7 @@ class LitecoindResponse implements
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      *
-     * @return \Majestic\Litecoin\LitecoindResponse
+     * @return \Growlot\Litecoin\LitecoindResponse
      */
     public static function createFrom(ResponseInterface $response)
     {

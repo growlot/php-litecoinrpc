@@ -1,6 +1,6 @@
 <?php
 
-namespace Majestic\Litecoin;
+namespace Growlot\Litecoin;
 
 use Psr\Http\Message\StreamInterface;
 

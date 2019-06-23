@@ -1,6 +1,6 @@
 <?php
 
-namespace Majestic\Litecoin;
+namespace Growlot\Litecoin;
 
 trait SerializableContainerTrait
 {

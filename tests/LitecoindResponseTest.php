@@ -1,7 +1,7 @@
 <?php
 
-use Majestic\Litecoin;
-use Majestic\Litecoin\Exceptions;
+use Growlot\Litecoin;
+use Growlot\Litecoin\Exceptions;
 use GuzzleHttp\Psr7\BufferStream;
 
 class LitecoindResponseTest extends TestCase

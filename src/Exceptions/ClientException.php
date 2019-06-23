@@ -1,6 +1,6 @@
 <?php
 
-namespace Majestic\Litecoin\Exceptions;
+namespace Growlot\Litecoin\Exceptions;
 
 use RuntimeException;
 
