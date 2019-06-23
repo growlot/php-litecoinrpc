@@ -1,13 +1,13 @@
 # Simple Litecoin JSON-RPC client based on GuzzleHttp
 
 ## About
-This project is based on [php-bitcoinrpc](https://github.com/denpamusic/php-bitcoinrpc) project - fully unit-tested Litecoin JSON-RPC client powered by GuzzleHttp.
+This project is based on [php-litecoinrpc](https://github.com/majestic/php-litecoinrpc) project - fully unit-tested Litecoin JSON-RPC client powered by GuzzleHttp.
 
 ## Installation
-Run ```php composer.phar require majestic/php-litecoinrpc``` in your project directory or add following lines to composer.json
+Run ```php composer.phar require growlot/php-litecoinrpc``` in your project directory or add following lines to composer.json
 ```javascript
 "require": {
-    "majestic/php-litecoinrpc": "^2.0"
+    "growlot/php-litecoinrpc": "^1.0"
 }
 ```
 and run ```php composer.phar update```.
@@ -18,13 +18,13 @@ PHP 7.0 or higher (should also work on 5.6, but this is unsupported)
 ## Usage
 Create new object with url as parameter
 ```php
-use Majestic\Litecoin\Client as LitecoinClient;
+use Growlot\Litecoin\Client as LitecoinClient;
 
 $litecoind = new LitecoinClient('http://rpcuser:rpcpassword@localhost:9332/');
 ```
 or use array to define your litecoind settings
 ```php
-use Majestic\Litecoin\Client as LitecoinClient;
+use Growlot\Litecoin\Client as LitecoinClient;
 
 $litecoind = new LitecoinClient([
     'scheme' => 'http',                 // optional, default http
@@ -35,7 +35,7 @@ $litecoind = new LitecoinClient([
     'ca'     => '/etc/ssl/ca-cert.pem'  // optional, for use with https scheme
 ]);
 ```
-Then call methods defined in [Litecoin Core API Documentation](https://litecoin.info/Litecoin_API) with magic:
+Then call methods defined in [Litecoin Core API Documentation](https://litecoin.info/index.php/Litecoin_API) with magic:
 ```php
 /**
  * Get block info.
@@ -71,7 +71,7 @@ $totalSatoshi = LitecoinClient::toSatoshi($totalAmount);
 ```
 To send asynchronous request, add Async to method name:
 ```php
-use Majestic\Litecoin\LitecoindResponse;
+use Growlot\Litecoin\LitecoindResponse;
 
 $promise = $litecoind->getBlockAsync(
     '9d4d9fd2f4dee46d5918861b7bbff81f52c581c3b935ad186fe4c5b6dc58d2f8',
@@ -107,13 +107,13 @@ $block->random(1, 'tx');   // get random txid
 /**
  * Send transaction.
  */
-$result = $BTC->request('sendtoaddress', ['LKdsQGCwBbgJNdXSQtAvVbFMpwgwThtsSY', 0.06]);
+$result = $litecoind->request('sendtoaddress', ['LKdsQGCwBbgJNdXSQtAvVbFMpwgwThtsSY', 0.06]);
 $txid = $result->get();
 
 ```
 or requestAsync method for asynchronous calls:
 ```php
-use Majestic\Litecoin\LitecoindResponse;
+use Growlot\Litecoin\LitecoindResponse;
 
 $promise = $litecoind->requestAsync(
     'getBlock',
@@ -147,6 +147,6 @@ This product is distributed under MIT license.
 ## Donations
 
 If you like this project,
-you can donate Litecoins to LKdsQGCwBbgJNdXSQtAvVbFMpwgwThtsSY.
+you can donate Litecoins to LbKRh7icJy8En3MDcPsxhLhF9quH9VNrgS.
 
 Thanks for your support!
