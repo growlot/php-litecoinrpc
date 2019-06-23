@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\Response;
 class ClientTest extends TestCase
 {
     /**
-     * Set up test.
+     * Sets up test.
      *
      * @return void
      */
@@ -19,7 +19,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test url parser.
+     * Tests url parser.
      *
      * @param string $url
      * @param string $scheme
@@ -67,7 +67,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test url parser with invalid url.
+     * Tests url parser with invalid url.
      *
      * @return void
      */
@@ -83,7 +83,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test client getter and setter.
+     * Tests client getter and setter.
      *
      * @return void
      */
@@ -106,7 +106,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test ca config option.
+     * Tests ca config option.
      *
      * @return void
      */
@@ -124,7 +124,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test simple request.
+     * Tests simple request.
      *
      * @return void
      */
@@ -145,7 +145,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test multiwallet request.
+     * Tests multiwallet request.
      *
      * @return void
      */
@@ -169,7 +169,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async multiwallet request.
+     * Tests async multiwallet request.
      *
      * @return void
      */
@@ -206,7 +206,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async request.
+     * Tests async request.
      *
      * @return void
      */
@@ -236,7 +236,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test magic request.
+     * Tests magic request.
      *
      * @return void
      */
@@ -256,7 +256,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test magic request.
+     * Tests magic request.
      *
      * @return void
      */
@@ -285,7 +285,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test litecoind exception.
+     * Tests litecoind exception.
      *
      * @return void
      */
@@ -310,7 +310,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async litecoind exception.
+     * Tests async litecoind exception.
      *
      * @return void
      */
@@ -341,7 +341,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test request exception with error code.
+     * Tests request exception with error code.
      *
      * @return void
      */
@@ -372,7 +372,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async request exception with error code.
+     * Tests async request exception with error code.
      *
      * @return void
      */
@@ -404,7 +404,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test request exception with empty response body.
+     * Tests request exception with empty response body.
      *
      * @return void
      */
@@ -432,7 +432,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async request exception with empty response body.
+     * Tests async request exception with empty response body.
      *
      * @return void
      */
@@ -464,7 +464,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test request exception with response.
+     * Tests request exception with response.
      *
      * @return void
      */
@@ -495,7 +495,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async request exception with response.
+     * Tests async request exception with response.
      *
      * @expectedException GuzzleHttp\Exception\RequestException
      *
@@ -529,7 +529,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test request exception with no response.
+     * Tests request exception with no response.
      *
      * @return void
      */
@@ -557,7 +557,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test async request exception with no response.
+     * Tests async request exception with no response.
      *
      * @expectedException GuzzleHttp\Exception\RequestException
      *
@@ -590,16 +590,31 @@ class ClientTest extends TestCase
         $promise->wait();
     }
 
+    /**
+     * Tests conversion of Satoshi to LTC.
+     *
+     * @return void
+     */
     public function testToLtc()
     {
         $this->assertEquals(0.00005849, Litecoin\Client::toLtc(5849));
     }
 
+    /**
+     * Tests conversion of LTC to Satoshi.
+     *
+     * @return void
+     */
     public function testToSatoshi()
     {
         $this->assertEquals(5849, Litecoin\Client::toSatoshi(0.00005849));
     }
 
+    /**
+     * Tests precision of float number.
+     *
+     * @return void
+     */
     public function testToFixed()
     {
         $this->assertSame('1', Litecoin\Client::toFixed(1.2345678910, 0));
