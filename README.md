@@ -1,13 +1,13 @@
 # Simple Litecoin JSON-RPC client based on GuzzleHttp
 
 ## About
-This project is based on [php-litecoinrpc](https://github.com/majestic/php-litecoinrpc) project - fully unit-tested Litecoin JSON-RPC client powered by GuzzleHttp.
+This project is based on [php-litecoinrpc](https://github.com/majestic84/php-litecoinrpc) project - fully unit-tested Litecoin JSON-RPC client powered by GuzzleHttp.
 
 ## Installation
 Run ```php composer.phar require growlot/php-litecoinrpc``` in your project directory or add following lines to composer.json
 ```javascript
 "require": {
-    "growlot/php-litecoinrpc": "^1.0"
+    "growlot/php-litecoinrpc": "^2.0"
 }
 ```
 and run ```php composer.phar update```.
