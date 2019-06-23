@@ -1,14 +1,14 @@
 {
-    "name": "majestic/php-litecoinrpc",
+    "name": "growlot/php-litecoinrpc",
 	"type": "library",
 	"description": "Litecoin JSON-RPC client based on GuzzleHttp",
 	"keywords": ["litecoin","api","jsonrpc","guzzle"],
-	"homepage": "https://github.com/majestic84/php-litecoinrpc",
+	"homepage": "https://github.com/growlot/php-litecoinrpc",
     "license": "MIT",
     "authors": [
         {
-            "name": "majestic84",
-            "email": "southsideprod@hotmail.com",
+            "name": "growlot",
+            "email": "growlot.71@gmail.com",
             "role": "Developer"
         }
 	],
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4" : {
-            "Majestic\\Litecoin\\": "src"
+            "Growlot\\Litecoin\\": "src"
         },
         "classmap" : [
             "tests"
