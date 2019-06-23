@@ -69,7 +69,7 @@ class ClientTest extends TestCase
     /**
      * Test url parser with invalid url.
      *
-     * @return array
+     * @return void
      */
     public function testUrlParserWithInvalidUrl()
     {
