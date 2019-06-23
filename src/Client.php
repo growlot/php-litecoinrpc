@@ -1,6 +1,6 @@
 <?php
 
-namespace Majestic\Litecoin;
+namespace Growlot\Litecoin;
 
 use GuzzleHttp\Client as GuzzleHttp;
 use GuzzleHttp\ClientInterface;
@@ -292,7 +292,7 @@ class Client
      *
      * @return float
      */
-    public static function toBtc($amount)
+    public static function toLtc($amount)
     {
         return bcdiv((int) $amount, 1e8, 8);
     }

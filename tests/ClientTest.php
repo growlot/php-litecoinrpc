@@ -1,7 +1,7 @@
 <?php
 
-use Majestic\Litecoin;
-use Majestic\Litecoin\Exceptions;
+use Growlot\Litecoin;
+use Growlot\Litecoin\Exceptions;
 use GuzzleHttp\Psr7\Response;
 
 class ClientTest extends TestCase
@@ -590,9 +590,9 @@ class ClientTest extends TestCase
         $promise->wait();
     }
 
-    public function testToBtc()
+    public function testToLtc()
     {
-        $this->assertEquals(0.00005849, Litecoin\Client::toBtc(310000 / 53));
+        $this->assertEquals(0.00005849, Litecoin\Client::toLtc(5849));
     }
 
     public function testToSatoshi()
